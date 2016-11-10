@@ -1,0 +1,58 @@
+---
+title: "TARGET Data in Google Bigquery"
+author: "Sean Davis"
+date: "November 10, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background and Motivation
+
+Two significant data barriers exist in leveraging large-scale genomic data. 
+
+1. Data munging to harmonize and format data into useful forms.
+2. General approaches to data integration that can be performed in an interactive, _ad hoc_ environment, **at scale**.
+
+To reduce these barriers, we have undertaken to leverage a cloud-scale data warehouse technology, [BigQuery], as 
+an analytics platform for the public-access data in the [the TARGET project].
+
+### The TARGET Project
+
+The [NCI TARGET project](https://target.nci.nih.gov) is the childhood cancer equivalent of the 
+adult TCGA project. The TARGET project is composed of datasets from six diseases:
+
+- Acute Myelogenous Leukemia
+- Acute Lymphocytic Leukemia
+- Neuroblastoma
+- Osteosarcoma
+- Rhabdomysarcoma
+- Kidney tumors
+    - Wilms tumor
+    - Clear Cell Sarcoma of the Kidney
+    - Rhabdoid Tumor of the Kidney
+
+Like the TCGA project, these projects have each been collecting samples and then assaying these
+samples using multiple genomics platforms. Accompanying clinical information is also available. 
+Each project team has been primarily responsible for their own analysis and quality control
+which has resulted in a set of data for each platform for each project. Depending on the assay, platform,
+and analysis pipelines, data are typically available at multiple "levels".  The so-called *level 3* data
+are typically gene-level or genomic-region-level summaries. 
+
+### BigQuery
+
+Although there is not a general solution for solving both 1 and 2, [BigQuery](https://cloud.google.com/bigquery/) is Google's fully managed, petabyte scale, enterprise data warehouse for analytics. BigQuery is serverless meaning that there is no infrastructure to manage and you don't need a database administrator, so you can focus on analyzing data to find meaningful insights using familiar SQL. Because BigQuery operates at cloud scale, data integration between disparate
+datasets is as simple as doing a join, even between datasets provided by other groups. Data munging can be done
+once to produce the "data warehouse". Further data munging and transformations can then be done at nearly arbitrary scales using industry-standard (or nearly) SQL-based tooling. BigQuery data can be accessed in several different ways, 
+including a [web-based user interface](https://cloud.google.com/bigquery/quickstart-web-ui) and a [command-line client](https://cloud.google.com/bigquery/quickstart-command-line). The [bigrquery R package](https://cran.r-project.org/package=bigrquery) by Hadley Wickham 
+provides access to BigQuery from R; I will focus usage in this document on the bigrquery interface and its utility
+in R.
+
+
+```{r cars}
+library(bigrquery)
+#src_bigquery()
+```
+
