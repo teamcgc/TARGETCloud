@@ -8,7 +8,9 @@ Description: The Therapeutically Applicable Research To Generate Effective Treat
   that drive childhood cancers. Investigators form a collaborative network to facilitate 
   discovery of molecular targets and translate those findings into the clinic. TARGET is 
   managed by NCI’s Office of Cancer Genomics and Cancer Therapy Evaluation Program.
-Depends: R (>= 3.3.1)
+Depends: R (>= 3.3.1), bigrquery
+Suggests: plyr
+Imports: readxl, readr
 License: MIT
 Encoding: UTF-8
 LazyData: true

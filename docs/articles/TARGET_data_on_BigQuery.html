@@ -62,9 +62,19 @@
 <div id="bigquery" class="section level3">
 <h3 class="hasAnchor"><html><body><a href="#bigquery" class="anchor"> </a></body></html>BigQuery</h3>
 <p>Although there is not a general solution for solving both 1 and 2, <a href="https://cloud.google.com/bigquery/">BigQuery</a> is Google&rsquo;s fully managed, petabyte scale, enterprise data warehouse for analytics. BigQuery is serverless meaning that there is no infrastructure to manage and you don&rsquo;t need a database administrator, so you can focus on analyzing data to find meaningful insights using familiar SQL. Because BigQuery operates at cloud scale, data integration between disparate datasets is as simple as doing a join, even between datasets provided by other groups. Data munging can be done once to produce the &ldquo;data warehouse&rdquo;. Further data munging and transformations can then be done at nearly arbitrary scales using industry-standard (or nearly) SQL-based tooling. BigQuery data can be accessed in several different ways, including a <a href="https://cloud.google.com/bigquery/quickstart-web-ui">web-based user interface</a> and a <a href="https://cloud.google.com/bigquery/quickstart-command-line">command-line client</a>. The <a href="https://cran.r-project.org/package=bigrquery">bigrquery R package</a> by Hadley Wickham provides access to BigQuery from R; I will focus usage in this document on the bigrquery interface and its utility in R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigrquery)
-<span class="co">#src_bigquery()</span></code></pre></div>
 </div>
+</div>
+<div id="accessing-target-using-bigrquery" class="section level2">
+<h2 class="hasAnchor"><html><body><a href="#accessing-target-using-bigrquery" class="anchor"> </a></body></html>Accessing TARGET Using bigrquery</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bigrquery)
+PROJECT=<span class="st">'isb-cgc-01-0006'</span></code></pre></div>
+<pre><code>## [1] "target_aml"  "target_ccsk" "target_nbl"  "target_os"   "target_rt"  
+## [6] "target_wt"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list_datasets</span>(PROJECT)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(plyr)
+x =<span class="st"> </span><span class="kw">rbind.fill</span>(<span class="kw"><a href="../reference/fixColnamesForBigQuery.html">fixColnamesForBigQuery</a></span>(wtmaf),<span class="kw"><a href="../reference/fixColnamesForBigQuery.html">fixColnamesForBigQuery</a></span>(allmaf),<span class="kw"><a href="../reference/fixColnamesForBigQuery.html">fixColnamesForBigQuery</a></span>(amlmaf),<span class="kw"><a href="../reference/fixColnamesForBigQuery.html">fixColnamesForBigQuery</a></span>(nblmaf))
+job =<span class="st"> </span>bigrquery::<span class="kw">insert_upload_job</span>(<span class="st">'isb-cgc-01-0006'</span>,<span class="st">'NCI_TARGET_Project'</span>,<span class="st">'mafs_all'</span>,<span class="dt">values =</span> x,<span class="dt">write_disposition =</span> <span class="st">'WRITE_TRUNCATE'</span>)
+<span class="co"># wait_for(job)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -73,6 +83,7 @@
         <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked"><li><a href="#background-and-motivation">Background and Motivation</a></li>
+      <li><a href="#accessing-target-using-bigrquery">Accessing TARGET Using bigrquery</a></li>
       </ul></div>
       </div>
 

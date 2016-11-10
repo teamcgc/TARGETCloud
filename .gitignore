@@ -3,3 +3,5 @@
 .RData
 .httr-oauth
 vignettes/ISB-CGC-01-0006-e4f745f6ba67.json
+vignettes/*html
+ISB-CGC-01-0006-e4f745f6ba67.json

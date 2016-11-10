@@ -7,6 +7,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(TARGETCloud)
+library(bigrquery)
+set_service_token("ISB-CGC-01-0006-e4f745f6ba67.json")
 ```
 
 ## Background and Motivation
@@ -56,10 +59,22 @@ in R.
 ```{r init}
 library(bigrquery)
 PROJECT='isb-cgc-01-0006'
-set_service_token("ISB-CGC-01-0006-e4f745f6ba67.json")
 ```
 
-```{r list_datasets}
+```{r list_datasets_real,echo=FALSE}
+Filter(function(x) substr(x,1,6)=='target',list_datasets(PROJECT))
+```
+
+```{r list_datasets,eval=FALSE}
 list_datasets(PROJECT)
 ```
+
+
+```{r}
+require(plyr)
+x = rbind.fill(fixColnamesForBigQuery(wtmaf),fixColnamesForBigQuery(allmaf),fixColnamesForBigQuery(amlmaf),fixColnamesForBigQuery(nblmaf))
+job = bigrquery::insert_upload_job('isb-cgc-01-0006','NCI_TARGET_Project','mafs_all',values = x,write_disposition = 'WRITE_TRUNCATE')
+# wait_for(job)
+```
+
 
