@@ -1,0 +1,14 @@
+Package: TARGETCloud
+Title: Scripts for loading and interacting with TARGET data in the cloud
+Version: 0.0.0.9000
+Authors@R: person("Henry", "Zhang", email = "hongen.zhang@nih.gov", role = c("aut", "cre")),
+           person("Sean", "Davis", email = "seandavi@gmail.com", role = "cre")
+Description: The Therapeutically Applicable Research To Generate Effective Treatments (TARGET) 
+  project applies a comprehensive genomic approach to determine molecular changes 
+  that drive childhood cancers. Investigators form a collaborative network to facilitate 
+  discovery of molecular targets and translate those findings into the clinic. TARGET is 
+  managed by NCI’s Office of Cancer Genomics and Cancer Therapy Evaluation Program.
+Depends: R (>= 3.3.1)
+License: MIT
+Encoding: UTF-8
+LazyData: true
