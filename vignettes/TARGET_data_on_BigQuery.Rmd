@@ -50,9 +50,16 @@ including a [web-based user interface](https://cloud.google.com/bigquery/quickst
 provides access to BigQuery from R; I will focus usage in this document on the bigrquery interface and its utility
 in R.
 
+## Accessing TARGET Using bigrquery
 
-```{r cars}
+
+```{r init}
 library(bigrquery)
-#src_bigquery()
+PROJECT='isb-cgc-01-0006'
+set_service_token("ISB-CGC-01-0006-e4f745f6ba67.json")
+```
+
+```{r list_datasets}
+list_datasets(PROJECT)
 ```
 
